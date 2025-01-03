@@ -1,0 +1,77 @@
+﻿<Window x:Class="WebAccessDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WebAccessDemo"
+        xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Border BorderBrush="AliceBlue" BorderThickness="3" 
+                HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label x:Name="lblProgress" Content="Web-Datei-Download" HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Grid.Row="0"/>
+            <xctk:WatermarkTextBox x:Name="tbxUrl" Grid.Row="1" HorizontalAlignment="left"
+                 Margin="0,0,0,0" TextWrapping="Wrap" Width="290"
+                 VerticalAlignment="Bottom" FontSize="14"
+                 Text="{Binding Url}">
+                <xctk:WatermarkTextBox.Watermark>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images/globe.png" Width ="16" Height="16" />
+                        <TextBlock Text="Bitte Datei-URL eingeben" Margin="5,0,0,0" />
+                    </StackPanel>
+                </xctk:WatermarkTextBox.Watermark>
+            </xctk:WatermarkTextBox>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <xctk:WatermarkTextBox x:Name="tbxTargetDirectory" Grid.Row="0" HorizontalAlignment="left"
+                    Margin="0,0,0,0" TextWrapping="Wrap" Width="290"
+                    VerticalAlignment="Bottom" FontSize="14"
+                    Text="{Binding TargetDirectory}">
+                    <xctk:WatermarkTextBox.Watermark>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/downloads.png" Width ="16" Height="16" />
+                            <TextBlock Text="Bitte Zielverzeichnis eingeben oder suchen" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </xctk:WatermarkTextBox.Watermark>
+                </xctk:WatermarkTextBox>
+                <Button x:Name="btnTargetDirectory" Width="30" Margin="3,0,0,0" Command="New" FontWeight="Bold">
+                    <Button.CommandBindings>
+                        <CommandBinding Command="New"
+                                        Executed="CmdBtnSearch_Executed"
+                                        CanExecute="CmdBtnSearch_CanExecute" />
+                    </Button.CommandBindings>
+                    ・・・
+                </Button>
+            </StackPanel>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ProgressBar x:Name="pbProgress" HorizontalAlignment="Left" Height="22" Margin="0,5,0,0"
+                             Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Width="228"/>
+                <TextBlock x:Name="percentageText" Text="0%" Grid.Row="0" Grid.Column="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                   FontWeight="Bold" Foreground="Black"/>
+                <Button x:Name="btnDownload" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="0,2,0,0"
+                VerticalAlignment="Top" FontSize="14" Width="90" Height="25"
+                                        Command="ApplicationCommands.New">
+                    <Button.CommandBindings>
+                        <CommandBinding Command="New"
+                                    Executed="CmdBtnDownload_Executed"
+                                    CanExecute="CmdBtnDownload_CanExecute" />
+                    </Button.CommandBindings>
+                    Download
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

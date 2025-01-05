@@ -3,9 +3,9 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WebAccess;
+using NetEti.FileTools;
 
-namespace WebAccessDemo
+namespace NetEti.DemoApplications
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -1,5 +1,13 @@
-﻿namespace WebAccess
+﻿namespace NetEti.FileTools
 {
+    /// <summary>
+    /// Stellt Methoden zum Herunterladen von Dateien aus dem Internet bereit.
+    /// </summary>
+    /// <remarks>
+    /// Autor: Erik Nagel
+    ///
+    /// 31.12.2024 Erik Nagel: erstellt.
+    /// </remarks>
     public class WebOperator : IDisposable
     {
         #region IDisposable Member
@@ -23,6 +31,7 @@
         {
             if (disposing && !this._disposed)
             {
+                this._disposed = true;
             }
         }
 
@@ -36,6 +45,10 @@
 
         #endregion IDisposable Member
 
+        /// <summary>
+        /// Gibt die Exception zurück, die beim letzten Task aufgetreten ist oder null.
+        /// </summary>
+        /// <returns></returns>
         public Exception? GetAndResetTaskException()
         {
             Exception? ex = this._taskException;
@@ -43,11 +56,24 @@
             return ex;
         }
 
+        /// <summary>
+        /// Lädt eine Datei aus dem Internet herunter.
+        /// </summary>
+        /// <param name="url">Die Webadresse.</param>
+        /// <param name="savePath">Das Zielverzeichnis.</param>
+        /// <param name="progress">Eine Variable mit einem Callback, über den der Prozessfortschritt zurückgegeben werden kann.</param>
         public void DownloadFile(string url, string savePath, IProgress<int>? progress = null)
         {
             DownloadFileAsync(url, savePath, progress).Wait();
         }
 
+        /// <summary>
+        /// Lädt eine Datei aus dem Internet herunter. Arbeitet asynchron
+        /// </summary>
+        /// <param name="url">Die Webadresse.</param>
+        /// <param name="savePath">Das Zielverzeichnis.</param>
+        /// <param name="progress">Eine Variable mit einem Callback, über den der Prozessfortschritt zurückgegeben werden kann.</param>
+        /// <returns>Die Task-Variable.</returns>
         public async Task DownloadFileAsync(string url, string savePath, IProgress<int>? progress = null)
         {
             this._taskException = null;
